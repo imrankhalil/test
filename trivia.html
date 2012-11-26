@@ -1,0 +1,209 @@
+<html>
+<head>
+<script language="javascript" type="text/javascript">
+function init()
+{
+	questionArray = new Array(10);
+	questionStatus = new Array(10);
+	askedQuestion = 0;
+	correctQuestion = 0;
+	
+	for (i=0;i<10; i++)
+	{
+		questionArray[i] = new Array(7);
+		questionStatus[i]=0;
+	}
+	
+	
+	//setting Question 1
+	questionArray[0][0] = "image1.jpg";
+	questionArray[0][1] = "What is Your name?";
+	questionArray[0][2] = 1;
+	questionArray[0][3] = "A";
+	questionArray[0][4] = "B";
+	questionArray[0][5] = "C";
+	questionArray[0][6] = "correct1.jpg";
+	
+	//setting Question 2
+	questionArray[1][0] = "image2.jpg";
+	questionArray[1][1] = "What is your age?";
+	questionArray[1][2] = 1;
+	questionArray[1][3] = "A";
+	questionArray[1][4] = "B";
+	questionArray[1][5] = "C";
+	questionArray[1][6] = "correct1.jpg";
+	
+	//setting Question 3
+	questionArray[2][0] = "image3.jpg";
+	questionArray[2][1] = "Your Father name?";
+	questionArray[2][2] = 3;
+	questionArray[2][3] = "A";
+	questionArray[2][4] = "B";
+	questionArray[2][5] = "C";
+	questionArray[2][6] = "correct3.jpg";
+	
+	//setting Question 4
+	questionArray[3][0] = "image4.jpg";
+	questionArray[3][1] = "What is your qualifications?";
+	questionArray[3][2] = 2;
+	questionArray[3][3] = "A";
+	questionArray[3][4] = "B";
+	questionArray[3][5] = "C";
+	questionArray[3][6] = "correct2.jpg";
+	
+	//setting Question 5
+	questionArray[4][0] = "image5.jpg";
+	questionArray[4][1] = "Are you married?";
+	questionArray[4][2] = 1;
+	questionArray[4][3] = "A";
+	questionArray[4][4] = "B";
+	questionArray[4][5] = "C";
+	questionArray[4][6] = "correct1.jpg";
+	
+	//setting Question 6
+	questionArray[5][0] = "image6.jpg";
+	questionArray[5][1] = "Where do u live?";
+	questionArray[5][2] = 2;
+	questionArray[5][3] = "A";
+	questionArray[5][4] = "B";
+	questionArray[5][5] = "C";
+	questionArray[5][6] = "correct2.jpg";
+	
+	//setting Question 7
+	questionArray[6][0] = "image7.jpg";
+	questionArray[6][1] = "Is it night there?";
+	questionArray[6][2] = 1;
+	questionArray[6][3] = "A";
+	questionArray[6][4] = "B";
+	questionArray[6][5] = "C";
+	questionArray[6][6] = "correct1.jpg";
+	
+	//setting Question 8
+	questionArray[7][0] = "image8.jpg";
+	questionArray[7][1] = "Whats Up?";
+	questionArray[7][2] = 1;
+	questionArray[7][3] = "A";
+	questionArray[7][4] = "B";
+	questionArray[7][5] = "C";
+	questionArray[7][6] = "correct1.jpg";
+	
+	//setting Question 9
+	questionArray[8][0] = "image9.jpg";
+	questionArray[8][1] = "Hows You?";
+	questionArray[8][2] = 3;
+	questionArray[8][3] = "A";
+	questionArray[8][4] = "B";
+	questionArray[8][5] = "C";
+	questionArray[8][6] = "correct3.jpg";
+	
+	//setting Question 10
+	questionArray[9][0] = "image10.jpg";
+	questionArray[9][1] = "Good day";
+	questionArray[9][2] = 1;
+	questionArray[9][3] = "A";
+	questionArray[9][4] = "B";
+	questionArray[9][5] = "C";
+	questionArray[9][6] = "correct1.jpg";
+	
+	do{
+		questionNo = Math.floor(Math.random()*10);
+	}while (questionStatus[questionNo] == 1);
+	
+	questionStatus[questionNo] = 1;
+	showTest(questionNo);
+}
+
+function showTest(number)
+{
+	//enable button
+	document.getElementsByName("answer")[0].disabled = false;
+	document.getElementsByName("answer")[1].disabled = false;
+	document.getElementsByName("answer")[2].disabled = false;
+	
+	
+	document.getElementById("questionHolder").innerHTML = questionArray[number][1];
+	document.getElementById("imageHolder").src = questionArray[number][0].toString();
+	document.getElementById("optOne").innerHTML = questionArray[number][3];
+	document.getElementById("optTwo").innerHTML = questionArray[number][4];
+	document.getElementById("optThree").innerHTML = questionArray[number][5];
+}
+
+function checkQuestion()
+{
+	if ((questionArray[questionNo][2] == 1 && document.getElementById("optOneHolder").checked)||(questionArray[questionNo][2] == 2 && document.getElementById("optTwoHolder").checked)||(questionArray[questionNo][2] == 3 && document.getElementById("optThreeHolder").checked))
+	{
+		correctQuestion = correctQuestion+1;
+		document.getElementById("body").setAttribute("style","background:#FFFF00;");
+		
+	}
+	else{
+		document.getElementById("body").setAttribute("style","background:#FF0000;");
+	}
+	
+	setTimeout(changeColor,1000);
+	askedQuestion = askedQuestion+1;
+	
+	document.getElementById("score").innerHTML= "You have answered "+ correctQuestion+" correct answers out of "+ askedQuestion+" total question.";
+	document.getElementById("body").innerHTML=((correctQuestion/askedQuestion)*100).toFixed(2)+'%';
+	
+	if (askedQuestion < 10)
+	{
+		/*if (askedQuestion == 9)
+		{
+			document.getElementById("button").setAttribute("style","display:none");;
+		}*/
+		do{
+			questionNo = Math.floor(Math.random()*10);
+		}while (questionStatus[questionNo] == 1);
+	
+		questionStatus[questionNo] = 1;
+		showTest(questionNo);
+	}
+	else
+	{
+		endTest();
+	}
+}
+
+function endTest(){
+	alert ('You have '+correctQuestion + 'Right answers' );
+}
+
+function changeColor()
+{
+	document.getElementById("body").setAttribute("style","background:#DDDDDD;");
+}
+
+function showAnswer()
+{
+	document.getElementById("imageHolder").src=questionArray[questionNo][6].toString();
+	document.getElementsByName("answer")[0].disabled = true;
+	document.getElementsByName("answer")[1].disabled = true;
+	document.getElementsByName("answer")[2].disabled = true;
+}
+</script>
+
+</head>
+<body onload="init ();" style="background:#DDDDDD;">
+<div class="header">
+Trivia Game
+</div>
+<div class="imageholder" align="center">
+	<img src="" id="imageHolder"/>
+</div>
+<div align="center"><span style="clear:both;" id="score">You have answered 0 correct answers out of 0 total question.</span>
+<span style="width:50px; height:50px; border-style:grove; border-width:5px; text-align:center; margin:10px 5px; padding:10px 5px" id="body">0%</span>
+</div>
+<div class="question" align="center">
+	<form>
+		<span id="questionHolder"></span>
+		<div>
+		<input type="radio" value="option1" name="answer" id="optOneHolder" onClick="showAnswer();"><span id="optOne"></span>
+		<input type="radio" value="option2" name="answer" id="optTwoHolder" onClick="showAnswer();"><span id="optTwo"></span>
+		<input type="radio" value="option3" name="answer" id="optThreeHolder" onClick="showAnswer();"><span id="optThree"></span>
+		</div>
+		<input type="Button" onClick="checkQuestion()" id="button" value="Continue"/>
+	</form>
+</div>
+</body>
+</html>
